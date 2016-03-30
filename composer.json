@@ -9,14 +9,14 @@
             "email": "info@andikessler.de"
         }
     ],
+    "require": {
+        "php": ">=5.5.0",
+        "ext-soap": "*"
+    },
     "autoload": {
         "psr-4": {
             "Andinger\\OpenLigaDbApi\\":"src/"
         }
-    },
-    "require": {
-        "php": ">=5.5.0",
-        "ext-soap": "*"
     }
 
 }
