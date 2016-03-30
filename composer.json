@@ -1,0 +1,16 @@
+{
+    "name": "andinger/openligadb-api",
+    "description": "PHP API to OpenLigaDB",
+    "authors": [
+        {
+            "name": "Andreas Kessler",
+            "email": "info@andikessler.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Andinger\\OpenLigaDbApi\\":"src/"
+        }
+    },
+    "require": {}
+}
