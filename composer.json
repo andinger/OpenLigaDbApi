@@ -1,6 +1,8 @@
 {
     "name": "andinger/openligadb-api",
     "description": "PHP API to OpenLigaDB",
+    "keywords":["api", "sport", "openligadb"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Andreas Kessler",
@@ -12,5 +14,9 @@
             "Andinger\\OpenLigaDbApi\\":"src/"
         }
     },
-    "require": {}
+    "require": {
+        "php": ">=5.5.0",
+        "ext-soap": "*"
+    }
+
 }
