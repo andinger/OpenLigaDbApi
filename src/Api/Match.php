@@ -2,6 +2,8 @@
 
 namespace Andinger\OpenLigaDbApi\Api;
 
+use Andinger\OpenLigaDbApi\Utilities\TimezoneConverter;
+
 class Match extends AbstractApiEntity
 {
     /**
@@ -155,6 +157,11 @@ class Match extends AbstractApiEntity
     protected $league = null;
 
     /**
+     * @var \DateTimeZone
+     */
+    protected $timezone = null;
+
+    /**
      * @return integer
      */
     public function getId()
@@ -168,7 +175,7 @@ class Match extends AbstractApiEntity
     public function getDateTime()
     {
         if(!$this->matchDateTime instanceof \DateTimeInterface) {
-            $this->matchDateTime = new \DateTime($this->matchDateTime);
+            $this->matchDateTime = new \DateTime($this->matchDateTime, $this->getTimeZone());
         }
 
         return $this->matchDateTime;
@@ -180,8 +187,7 @@ class Match extends AbstractApiEntity
     public function getDateTimeUTC()
     {
         if(!$this->matchDateTimeUTC instanceof \DateTimeInterface) {
-            $timezone = new \DateTimeZone('UTC');
-            $this->matchDateTimeUTC = new \DateTime($this->matchDateTimeUTC, $timezone);
+            $this->matchDateTimeUTC = new \DateTime($this->matchDateTimeUTC, new \DateTimeZone('UTC'));
         }
 
         return $this->matchDateTimeUTC;
@@ -265,7 +271,7 @@ class Match extends AbstractApiEntity
     public function getLastUpdate()
     {
         if(!$this->lastUpdate instanceof \DateTimeInterface) {
-            $this->lastUpdate = new \DateTime($this->lastUpdate);
+            $this->lastUpdate = new \DateTime($this->lastUpdate, $this->getTimeZone());
         }
 
         return $this->lastUpdate;
@@ -290,9 +296,13 @@ class Match extends AbstractApiEntity
     /**
      * @return string
      */
-    public function getTimeZoneID()
+    public function getTimeZone()
     {
-        return $this->TimeZoneID;
+        if($this->timezone === null) {
+            $this->timezone = new \DateTimeZone(TimezoneConverter::windowsToIana($this->TimeZoneID));
+        }
+
+        return $this->timezone;
     }
 
     /**

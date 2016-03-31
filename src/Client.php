@@ -30,7 +30,7 @@ class Client
     protected $soapClient;
 
     /**
-     * @param string | null $wsdlUrl
+     * @param string|null $wsdlUrl URL of the api specifications
      *
      * @throws \Exception if something went wrong :)
      * @return Client
