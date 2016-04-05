@@ -26,47 +26,56 @@ use Andinger\OpenLigaDbApi\Model\Checkable;
 class Client
 {
     const WSDL_URL = 'http://www.OpenLigaDB.de/Webservices/Sportsdata.asmx?WSDL';
+    const SOAP_CLASSMAP = [
+        'ArrayOfGoal' => ArrayOfGoals::class,
+        'ArrayOfGroup' => ArrayOfGroups::class,
+        'ArrayOfLeague' => ArrayOfLeagues::class,
+        'ArrayOfMatchdata' => ArrayOfMatches::class,
+        'ArrayOfMatchResult' => ArrayOfMatchResults::class,
+        'ArrayOfSport' => ArrayOfSports::class,
+        'ArrayOfTeam' => ArrayOfTeams::class,
+        'Goal' => Goal::class,
+        'Group' => Group::class,
+        'League' => League::class,
+        'Location' => Location::class,
+        'Matchdata' => Match::class,
+        'matchResult' => MatchResult::class,
+        'Sport' => Sport::class,
+        'Team' => Team::class,
+    ];
 
     protected $soapClient;
 
+    protected $defaults = [
+        'connection_timeout' => 5,
+        'encoding' => 'UTF-8',
+        'exceptions' => true,
+        'soap_version' => SOAP_1_2
+    ];
+
     /**
-     * @param string|null $wsdlUrl URL of the api specifications
+     * @param string|null $wsdl URL of the api specifications
+     * @param array $options additional SoapClient-options
      *
      * @throws \Exception if something went wrong :)
      * @return Client
      */
-    public function __construct($wsdlUrl=null)
+    public function __construct($wsdl=null, $options=[])
     {
-        if($wsdlUrl === null) {
-            $wsdlUrl = self::WSDL_URL;
+        if($wsdl === null) {
+            $wsdl = self::WSDL_URL;
         }
+
+        if(!is_array($options)) {
+            $options = [];
+        }
+
+        $options = array_merge($this->defaults, $options);
 
         try {
             $this->soapClient = new \SoapClient(
-                $wsdlUrl,
-                [
-                    'classmap' => [
-                        'ArrayOfGoal' => ArrayOfGoals::class,
-                        'ArrayOfGroup' => ArrayOfGroups::class,
-                        'ArrayOfLeague' => ArrayOfLeagues::class,
-                        'ArrayOfMatchdata' => ArrayOfMatches::class,
-                        'ArrayOfMatchResult' => ArrayOfMatchResults::class,
-                        'ArrayOfSport' => ArrayOfSports::class,
-                        'ArrayOfTeam' => ArrayOfTeams::class,
-                        'Goal' => Goal::class,
-                        'Group' => Group::class,
-                        'League' => League::class,
-                        'Location' => Location::class,
-                        'Matchdata' => Match::class,
-                        'matchResult' => MatchResult::class,
-                        'Sport' => Sport::class,
-                        'Team' => Team::class,
-                    ],
-                    'connection_timeout' => 5,
-                    'encoding' => 'UTF-8',
-                    'exceptions' => true,
-                    'soap_version' => SOAP_1_2
-                ]
+                $wsdl,
+                $options
             );
         } catch(\Exception $e) {
             throw $e;

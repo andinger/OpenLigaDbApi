@@ -266,7 +266,7 @@ class Match extends AbstractApiEntity
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getLastUpdate()
     {

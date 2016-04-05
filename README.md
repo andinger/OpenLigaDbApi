@@ -16,6 +16,14 @@ Currently not all provided methods are supported by this little project. Feel fr
     
     // use another wsdl url
     $client = new Andinger\OpenLigaDbApi\Client('https://my.custom.wsdl.url.com/...wsdl');
+
+    // use additional SoapClient-Config
+    // @see http://php.net/manual/de/soapclient.soapclient.php for further information
+    $options = [
+        'local_cert' => 'cert_key.pem'
+    ];
+
+    $client = new Andinger\OpenLigaDbApi\Client('https://my.custom.wsdl.url.com/...wsdl', $options);
     
 #### 2. Call the methods
 
