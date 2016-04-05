@@ -26,23 +26,6 @@ use Andinger\OpenLigaDbApi\Model\Checkable;
 class Client
 {
     const WSDL_URL = 'http://www.OpenLigaDB.de/Webservices/Sportsdata.asmx?WSDL';
-    const SOAP_CLASSMAP = [
-        'ArrayOfGoal' => ArrayOfGoals::class,
-        'ArrayOfGroup' => ArrayOfGroups::class,
-        'ArrayOfLeague' => ArrayOfLeagues::class,
-        'ArrayOfMatchdata' => ArrayOfMatches::class,
-        'ArrayOfMatchResult' => ArrayOfMatchResults::class,
-        'ArrayOfSport' => ArrayOfSports::class,
-        'ArrayOfTeam' => ArrayOfTeams::class,
-        'Goal' => Goal::class,
-        'Group' => Group::class,
-        'League' => League::class,
-        'Location' => Location::class,
-        'Matchdata' => Match::class,
-        'matchResult' => MatchResult::class,
-        'Sport' => Sport::class,
-        'Team' => Team::class,
-    ];
 
     protected $soapClient;
 
@@ -50,7 +33,24 @@ class Client
         'connection_timeout' => 5,
         'encoding' => 'UTF-8',
         'exceptions' => true,
-        'soap_version' => SOAP_1_2
+        'soap_version' => SOAP_1_2,
+        'classmap' => [
+            'ArrayOfGoal' => ArrayOfGoals::class,
+            'ArrayOfGroup' => ArrayOfGroups::class,
+            'ArrayOfLeague' => ArrayOfLeagues::class,
+            'ArrayOfMatchdata' => ArrayOfMatches::class,
+            'ArrayOfMatchResult' => ArrayOfMatchResults::class,
+            'ArrayOfSport' => ArrayOfSports::class,
+            'ArrayOfTeam' => ArrayOfTeams::class,
+            'Goal' => Goal::class,
+            'Group' => Group::class,
+            'League' => League::class,
+            'Location' => Location::class,
+            'Matchdata' => Match::class,
+            'matchResult' => MatchResult::class,
+            'Sport' => Sport::class,
+            'Team' => Team::class,
+        ]
     ];
 
     /**
